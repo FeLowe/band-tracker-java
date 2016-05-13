@@ -81,34 +81,34 @@ public class Venue {
           }
         }
 
-//   public void addAuthor(Author author) {
-//   try(Connection con = DB.sql2o.open()) {
-//     String sql = "INSERT INTO authors_books (author_id, book_id) VALUES (:author_id, :book_id)";
-//     con.createQuery(sql)
-//       .addParameter("author_id", author.getId())
-//       .addParameter("book_id", this.getId())
-//       .executeUpdate();
-//   }
-// }
-//
-//   public List<Author> getAuthors() {
-//     try(Connection con = DB.sql2o.open()){
-//       String joinQuery = "SELECT author_id FROM authors_books WHERE book_id = :book_id";
-//       List<Integer> authorIds = con.createQuery(joinQuery)
-//         .addParameter("book_id", this.getId())
-//         .executeAndFetch(Integer.class);
-//
-//       List<Author> authors = new ArrayList<Author>();
-//
-//       for (Integer authorId : authorIds) {
-//         String bookQuery = "Select * From authors WHERE id = :authorId";
-//         Author author = con.createQuery(bookQuery)
-//           .addParameter("authorId", authorId)
-//           .executeAndFetchFirst(Author.class);
-//         authors.add(author);
-//       }
-//       return authors;
-//     }
-//   }
+  public void addBand(Band band) {
+  try(Connection con = DB.sql2o.open()) {
+    String bandVenuesTable = "INSERT INTO bands_venues (band_id, venue_id) VALUES (:band_id, :venue_id)";
+    con.createQuery(bandVenuesTable)
+    .addParameter("venue_id", this.getId())
+      .addParameter("band_id", band.getId())
+      .executeUpdate();
+  }
+}
+
+  public List<Band> getBands() {
+    try(Connection con = DB.sql2o.open()){
+      String bandVenuesTableJointTable = "SELECT band_id FROM bands_venues WHERE venue_id = :venue_id";
+      List<Integer> bandIds = con.createQuery(bandVenuesTableJointTable )
+        .addParameter("venue_id", this.getId())
+        .executeAndFetch(Integer.class);
+
+      List<Band> bands = new ArrayList<Band>();
+
+      for (Integer bandId : bandIds) {
+        String bandTable = "SELECT * FROM bands WHERE id = :bandId";
+        Band band = con.createQuery(bandTable)
+          .addParameter("bandId", bandId)
+          .executeAndFetchFirst(Band.class);
+        bands.add(band);
+      }
+      return bands;
+    }
+  }
 
 }

@@ -71,26 +71,30 @@ public class BandTest {
     newBand.update("Pearl Jam");
     assertEquals("Pearl Jam", Band.find(newBand.getId()).getName());
   }
-    @Test
-    public void addBand_addsBandToVenue() {
-      Band newBand = new Band("U2");
-      newBand.save();
-      Venue newVenue = new Venue("Soldier Field");
-      newVenue.save();
-      newVenue.addBand(newBand);
-      Band savedBand = newVenue.getBands().get(0);
-      assertTrue(newBand.equals(savedBand));
-    }
 
-  //  @Test
-  //  public void getBands_returnsAllBands_List() {
-  //    Author myAuthor = new Author("Household chores");
-  //    myAuthor.save();
-  //    Book myBook = new Book("Mow the lawn");
-  //    myBook.save();
-  //    myAuthor.addBook(myBook);
-  //    List savedBooks = myAuthor.getBooks();
-  //    assertEquals(1, savedBooks.size());
-  //  }
+  @Test
+  public void addVenue_addsVenueToBand_true() {
+    Band existingBand = new Band("U2");
+    existingBand.save();
+    Venue existingVenue = new Venue("Soldier Field");
+    existingVenue.save();
+    existingBand.addVenue(existingVenue);
+    Venue savedVenue = existingBand.getVenues().get(0);
+    assertTrue(existingVenue.equals(savedVenue));
+  }
+
+  @Test
+  public void getVenues_returnsAllVenues_List() {
+    Band existingBand = new Band("U2");
+    existingBand.save();
+    Venue existingVenue = new Venue("Soldier Field");
+    existingVenue.save();
+    existingBand.addVenue(existingVenue);
+    List savedVenues = existingBand.getVenues();
+    assertEquals(1, savedVenues.size());
+    //  System.out.println(existingBand);
+    //  System.out.println(newVenue);
+    //  System.out.println(savedVenues);
+  }
 
 }

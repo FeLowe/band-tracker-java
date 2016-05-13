@@ -80,34 +80,34 @@ public class Band {
       .executeUpdate();
     }
   }
-  public void addBand(Band band) {
+  public void addVenue(Venue venue) {
     try(Connection con = DB.sql2o.open()) {
-      String bandsVenuesTable = "INSERT INTO bands_venues (band_id, venue_id) VALUES (:band_id, :venue_id)";
-      con.createQuery(bandsVenuesTable)
+      String bandsVenuesJointTable = "INSERT INTO bands_venues (band_id, venue_id) VALUES (:band_id, :venue_id)";
+      con.createQuery(bandsVenuesJointTable)
         .addParameter("band_id", this.getId())
-        .addParameter("venue_id", band.getId())
+        .addParameter("venue_id", venue.getId())
         .executeUpdate();
     }
   }
 
-  // public List<Book> getBooks() {
-  //   try(Connection con = DB.sql2o.open()){
-  //     String joinQuery = "SELECT book_id FROM authors_books WHERE author_id = :author_id";
-  //     List<Integer> bookIds = con.createQuery(joinQuery)
-  //       .addParameter("author_id", this.getId())
-  //       .executeAndFetch(Integer.class);
-  //
-  //     List<Book> books = new ArrayList<Book>();
-  //
-  //     for (Integer bookId : bookIds) {
-  //       String bookQuery = "SELECT * FROM books WHERE id = :bookId";
-  //       Book book = con.createQuery(bookQuery)
-  //         .addParameter("bookId", bookId)
-  //         .executeAndFetchFirst(Book.class);
-  //       books.add(book);
-  //     }
-  //     return books;
-  //   }
-  // }
+  public List<Venue> getVenues() {
+    try(Connection con = DB.sql2o.open()){
+      String bandsVenuesJointTable = "SELECT venue_id FROM bands_venues WHERE band_id = :band_id";
+      List<Integer> venueIds = con.createQuery(bandsVenuesJointTable)
+        .addParameter("band_id", this.getId())
+        .executeAndFetch(Integer.class);
+
+      List<Venue> venues = new ArrayList<Venue>();
+
+      for (Integer venueId : venueIds) {
+        String venueTable = "SELECT * FROM venues WHERE id = :venueId";
+        Venue venue = con.createQuery(venueTable)
+          .addParameter("venueId", venueId)
+          .executeAndFetchFirst(Venue.class);
+        venues.add(venue);
+      }
+      return venues;
+    }
+  }
 
 }
