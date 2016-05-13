@@ -1,0 +1,18 @@
+<h1>All books</h1>
+
+<ul>
+  #foreach ($book in $books)
+    <li><a href="/books/$book.getId()">$book.getName()</a></li>
+  #end
+</ul>
+
+<p>Add a new book:</p>
+
+<form action="/books" method="post">
+  <label for="name">Book name</label>
+  <input id="name" name="name" type="text">
+  <button type="submit" class="btn btn-success">Add Book</button>
+</form>
+
+
+<p><a href="/">Home</a></p>

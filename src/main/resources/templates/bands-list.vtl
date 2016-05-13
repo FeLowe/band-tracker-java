@@ -1,0 +1,17 @@
+<h1>All authors</h1>
+
+<ul>
+  #foreach ($author in $authors)
+    <li><a href="/authors/$author.getId()">$author.getName()</a></li>
+  #end
+</ul>
+
+<p>Add a new author:</p>
+
+<form action="/authors" method="post">
+  <label for="name">Author name</label>
+  <input id="name" name="name" type="text">
+  <button type="submit" class="btn btn-success">Add Author</button>
+</form>
+
+<p><a href="/">Home</a></p>

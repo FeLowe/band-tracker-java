@@ -1,0 +1,18 @@
+<h1>$author.getName()</h1>
+
+<p>Edit author:</p>
+
+<form action="/authors/$author.getId()/edit" method="post">
+  <input id="author_update_id" name="author_update_id" type="hidden" value="$author.getId()">
+  <label for="author-update">Update to:</label>
+  <input id="author-update" name="author-update" type="text">
+  <button type="submit" class="btn btn-info" id="update-author">Update Author</button>
+</form>
+
+<a href="/$author.all()">Return to authors</a>
+
+<ul>
+  #foreach ($author in $authors)
+    <li><a href="/author.getId()">$author.getName()</a></li>
+  #end
+</ul>

@@ -1,0 +1,18 @@
+<h1>$book.getName()</h1>
+
+<p>Edit book:</p>
+
+<form action="/books/$book.getId()/edit" method="post">
+  <input id="book_update_id" name="book_update_id" type="hidden" value="$book.getId()">
+  <label for="book-update">Update to:</label>
+  <input id="book-update" name="book-update" type="text">
+  <button type="submit" class="btn btn-info" id="update-book">Update Book</button>
+</form>
+
+<a href="/$book.all()">Return to books</a>
+
+<ul>
+  #foreach ($book in $books)
+    <li><a href="/book.getId()">$book.getName()</a></li>
+  #end
+</ul>
