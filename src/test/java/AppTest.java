@@ -30,14 +30,14 @@ public class AppTest extends FluentTest {
       assertThat(pageSource()).contains("Band Tracker");
     }
 
-  // @Test
-  // public void authorIsCreatedTest() {
-  //   goTo("http://localhost:4567/");
-  //   click("a", withText("Authors"));
-  //   fill("#name").with("Paulo Coelho");
-  //   submit(".btn");
-  //   assertThat(pageSource()).contains("Paulo Coelho");
-  // }
+  @Test
+  public void bandIsCreatedTest() {
+    goTo("http://localhost:4567/");
+    click("a", withText("Bands"));
+    fill("#name").with("U2");
+    submit(".btn");
+    assertThat(pageSource()).contains("U2");
+  }
   //
   //  @Test
   //   public void bookIsCreatedTest() {
