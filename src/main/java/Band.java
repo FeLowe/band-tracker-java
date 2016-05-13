@@ -12,52 +12,74 @@ public class Band {
     this.name = name;
   }
 
-  // public String getName() {
-  //   return name;
-  // }
-  //
-  // public int getId() {
-  //   return id;
-  // }
-  //
-  // public static List<Author> all() {
-  //   String sql = "SELECT id, name FROM authors";
-  //   try(Connection con = DB.sql2o.open()) {
-  //     return con.createQuery(sql).executeAndFetch(Author.class);
-  //   }
-  // }
-  //
-  // @Override
-  // public boolean equals(Object otherAuthor) {
-  //   if (!(otherAuthor instanceof Author)) {
-  //     return false;
-  //   } else {
-  //     Author newAuthor = (Author) otherAuthor;
-  //     return this.getName().equals(newAuthor.getName()) &&
-  //            this.getId() == newAuthor.getId();
-  //   }
-  // }
-  //
-  // public void save() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "INSERT INTO authors(name) VALUES (:name)";
-  //     this.id = (int) con.createQuery(sql, true)
-  //       .addParameter("name", this.name)
-  //       .executeUpdate()
-  //       .getKey();
-  //   }
-  // }
-  //
-  // public static Author find(int id) {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "SELECT * FROM authors where id=:id";
-  //     Author author = con.createQuery(sql)
-  //       .addParameter("id", id)
-  //       .executeAndFetchFirst(Author.class);
-  //     return author;
-  //   }
-  // }
+  public String getName() {
+    return name;
+  }
 
+  public int getId() {
+    return id;
+  }
+
+  public static List<Band> all() {
+    String bandTable = "SELECT id, name FROM bands";
+    try(Connection con = DB.sql2o.open()) {
+      return con.createQuery(bandTable).executeAndFetch(Band.class);
+    }
+  }
+
+  @Override
+  public boolean equals(Object otherBand) {
+    if (!(otherBand instanceof Band)) {
+      return false;
+    } else {
+      Band newBand = (Band) otherBand;
+      return this.getName().equals(newBand.getName()) &&
+      this.getId() == newBand.getId();
+    }
+  }
+
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String bandTable = "INSERT INTO bands(name) VALUES (:name)";
+      this.id = (int) con.createQuery(bandTable, true)
+      .addParameter("name", this.name)
+      .executeUpdate()
+      .getKey();
+    }
+  }
+
+  public static Band find(int id) {
+    try(Connection con = DB.sql2o.open()) {
+      String bandTable = "SELECT * FROM bands where id=:id";
+      Band band = con.createQuery(bandTable)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Band.class);
+      return band;
+    }
+  }
+  public void delete() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteQuery = "DELETE FROM bands WHERE id = :id;";
+      con.createQuery(deleteQuery)
+      .addParameter("id", this.getId())
+      .executeUpdate();
+
+      String joinDeleteQuery = "DELETE FROM bands_venues WHERE band_id = :bandId";
+      con.createQuery(joinDeleteQuery)
+      .addParameter("bandId", this.getId())
+      .executeUpdate();
+    }
+  }
+
+  public void update(String newBand) {
+    try(Connection con = DB.sql2o.open()) {
+      String bandTable = "UPDATE bands SET name = :name WHERE id = :id";
+      con.createQuery(bandTable)
+      .addParameter("name", newBand)
+      .addParameter("id", this.id)
+      .executeUpdate();
+    }
+  }
   // public void addBook(Book book) {
   //   try(Connection con = DB.sql2o.open()) {
   //     String sql = "INSERT INTO authors_books (author_id, book_id) VALUES (:author_id, :book_id)";
@@ -88,26 +110,4 @@ public class Band {
   //   }
   // }
 
-  // public void delete() {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String deleteQuery = "DELETE FROM authors WHERE id = :id;";
-  //       con.createQuery(deleteQuery)
-  //         .addParameter("id", this.getId())
-  //         .executeUpdate();
-  //
-  //     String joinDeleteQuery = "DELETE FROM authors_books WHERE author_id = :authorId";
-  //       con.createQuery(joinDeleteQuery)
-  //         .addParameter("authorId", this.getId())
-  //         .executeUpdate();
-  //     }
-  //   }
-  //   public void update(String newAuthor) {
-  //     try(Connection con = DB.sql2o.open()) {
-  //       String sql = "UPDATE authors SET name = :name WHERE id = :id";
-  //       con.createQuery(sql)
-  //         .addParameter("name", newAuthor)
-  //         .addParameter("id", this.id)
-  //         .executeUpdate();
-  //     }
-  //   }
 }

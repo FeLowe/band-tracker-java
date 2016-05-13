@@ -8,7 +8,7 @@ public class VenueTest {
 
   @Rule
  public DatabaseRule database = new DatabaseRule();
- //
+
  // @Test
  // public void Venue_instantiatesCorrectly_true(){
  //   Venue newVenue = new Venue("United Center");
