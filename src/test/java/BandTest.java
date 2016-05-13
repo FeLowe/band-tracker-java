@@ -26,21 +26,21 @@ public class BandTest {
   }
 
   @Test
-  public void equals_returnsTrueIfNamesAretheSame_true() {
+  public void equals_returnsTrueIfBandNamesAretheSame_true() {
     Band inputBand = new Band("U2");
     Band bandInDatabase = new Band("U2");
     assertTrue(inputBand.equals(bandInDatabase));
   }
 
   @Test
-  public void save_savesIntoDatabase_true() {
+  public void save_savesBandIntoDatabase_true() {
     Band newBand = new Band("U2");
     newBand.save();
     assertTrue(Band.all().get(0).equals(newBand));
   }
 
   @Test
-  public void save_assignsIdToObject() {
+  public void save_assignsIdToBand() {
     Band newBand = new Band("U2");
     newBand.save();
     Band savedBand = Band.all().get(0);
@@ -92,9 +92,6 @@ public class BandTest {
     existingBand.addVenue(existingVenue);
     List savedVenues = existingBand.getVenues();
     assertEquals(1, savedVenues.size());
-    //  System.out.println(existingBand);
-    //  System.out.println(newVenue);
-    //  System.out.println(savedVenues);
   }
 
 }

@@ -41,7 +41,7 @@ public class VenueTest {
   }
 
   @Test
-  public void save_assignsIdToObject() {
+  public void save_assignsIdToVenue() {
     Venue newVenue = new Venue("Soldier Field");
     newVenue.save();
     Venue savedVenue = Venue.all().get(0);
@@ -93,6 +93,4 @@ public class VenueTest {
     List savedBands = existingVenue.getBands();
     assertEquals(1, savedBands.size());
   }
-
-
 }
