@@ -80,16 +80,16 @@ public class Band {
       .executeUpdate();
     }
   }
-  // public void addBook(Book book) {
-  //   try(Connection con = DB.sql2o.open()) {
-  //     String sql = "INSERT INTO authors_books (author_id, book_id) VALUES (:author_id, :book_id)";
-  //     con.createQuery(sql)
-  //       .addParameter("author_id", this.getId())
-  //       .addParameter("book_id", book.getId())
-  //       .executeUpdate();
-  //   }
-  // }
-  //
+  public void addBand(Band band) {
+    try(Connection con = DB.sql2o.open()) {
+      String bandsVenuesTable = "INSERT INTO bands_venues (band_id, venue_id) VALUES (:band_id, :venue_id)";
+      con.createQuery(bandsVenuesTable)
+        .addParameter("band_id", this.getId())
+        .addParameter("venue_id", band.getId())
+        .executeUpdate();
+    }
+  }
+
   // public List<Book> getBooks() {
   //   try(Connection con = DB.sql2o.open()){
   //     String joinQuery = "SELECT book_id FROM authors_books WHERE author_id = :author_id";
