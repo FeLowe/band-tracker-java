@@ -14,12 +14,12 @@ public class BandTest {
     Band newBand = new Band("U2");
     assertEquals(true, newBand instanceof Band);
   }
- //
- //  @Test
- //  public void getName_authorInstantiatesWithName_String() {
- //    Author myAuthor = new Author("Household chores");
- //    assertEquals("Household chores", myAuthor.getName());
- //  }
+
+  // @Test
+  // public void getName_bandInstantiatesWithName_String() {
+  //   Author myAuthor = new Author("Household chores");
+  //   assertEquals("Household chores", myAuthor.getName());
+  // }
  //
  //  @Test
  //  public void all_emptyAtFirst() {

@@ -8,12 +8,12 @@ public class VenueTest {
 
   @Rule
  public DatabaseRule database = new DatabaseRule();
-
- @Test
- public void Venue_instantiatesCorrectly_true(){
-   Venue newVenue = new Venue("United Center");
-   assertEquals(true, newVenue instanceof Venue);
- }
+ //
+ // @Test
+ // public void Venue_instantiatesCorrectly_true(){
+ //   Venue newVenue = new Venue("United Center");
+ //   assertEquals(true, newVenue instanceof Venue);
+ // }
 
  // @Test
  //  public void getName_bookWithName_String(){
