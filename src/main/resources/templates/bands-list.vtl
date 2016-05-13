@@ -1,17 +1,17 @@
-<h1>All authors</h1>
+<h1>All Bands</h1>
 
 <ul>
-  #foreach ($author in $authors)
-    <li><a href="/authors/$author.getId()">$author.getName()</a></li>
+  #foreach ($band in $bands)
+    <li><a href="/bands/$band.getId()">$band.getName()</a></li>
   #end
 </ul>
 
-<p>Add a new author:</p>
+<p>Add a new band:</p>
 
-<form action="/authors" method="post">
-  <label for="name">Author name</label>
+<form action="/bands" method="post">
+  <label for="name">Band name</label>
   <input id="name" name="name" type="text">
-  <button type="submit" class="btn btn-success">Add Author</button>
+  <button type="submit" class="btn btn-success">Add Band</button>
 </form>
 
-<p><a href="/">Home</a></p>
+<p><a href="/">Back to main page</a></p>

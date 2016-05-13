@@ -1,18 +1,17 @@
-<h1>All books</h1>
+<h1>All Venues</h1>
 
 <ul>
-  #foreach ($book in $books)
-    <li><a href="/books/$book.getId()">$book.getName()</a></li>
+  #foreach ($venue in $venues)
+    <li><a href="/venues/$venue.getId()">$venue.getName()</a></li>
   #end
 </ul>
 
-<p>Add a new book:</p>
+<p>Add a new venue:</p>
 
-<form action="/books" method="post">
-  <label for="name">Book name</label>
-  <input id="name" name="name" type="text">
-  <button type="submit" class="btn btn-success">Add Book</button>
+<form action="/venues" method="post">
+  <label for="venue-name">Venue name</label>
+  <input id="venue-name" name="venue-name" type="text">
+  <button type="submit" class="btn btn-success" id="btn-venue-submit">Add Venue</button>
 </form>
 
-
-<p><a href="/">Home</a></p>
+<p><a href="/">Back to main page</a></p>

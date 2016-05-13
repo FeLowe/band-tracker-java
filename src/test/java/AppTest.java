@@ -28,6 +28,7 @@ public class AppTest extends FluentTest {
     public void rootTest() {
       goTo("http://localhost:4567/");
       assertThat(pageSource()).contains("Band Tracker");
+
     }
 
   @Test
@@ -38,48 +39,50 @@ public class AppTest extends FluentTest {
     submit(".btn");
     assertThat(pageSource()).contains("U2");
   }
-  //
-  //  @Test
-  //   public void bookIsCreatedTest() {
-  //     goTo("http://localhost:4567/");
-  //     click("a", withText("Books"));
-  //     fill("#name").with("The Alchemist");
-  //     submit(".btn");
-  //     assertThat(pageSource()).contains("The Alchemist");
-  // }
-  //
+
+   @Test
+    public void venueIsCreatedTest() {
+      goTo("http://localhost:4567/");
+      click("a", withText("Venues"));
+      fill("#venue-name").with("Soldier Field");
+      submit("#btn-venue-submit");
+      assertThat(pageSource()).contains("Soldier Field");
+  }
+
+  @Test
+  public void BandDisplays() {
+    Band existingBand = new Band("U2");
+    existingBand.save();
+    String url = String.format("http://localhost:4567/bands/%d", existingBand.getId());
+    goTo(url);
+    assertThat(pageSource()).contains("U2");
+  }
+
   // @Test
-  // public void authorShowPageDisplaysName() {
-  //   Author testAuthor = new Author("Paulo Coelho");
-  //   testAuthor.save();
-  //   String url = String.format("http://localhost:4567/authors/%d", testAuthor.getId());
+  // public void venueDisplays() {
+  //   Venue existingVenue = new Venue("Soldier Field");
+  //   existingVenue.save();
+  //   String url = String.format("http://localhost:4567/venues/%d", existingVenue.getId());
   //   goTo(url);
-  //   assertThat(pageSource()).contains("Paulo Coelho");
+  //   assertThat(pageSource()).contains("Soldier Field");
   // }
-  //
-  // @Test
-  // public void bookShowPageDisplaysName() {
-  //   Book testBook = new Book("The Alchemist");
-  //   testBook.save();
-  //   String url = String.format("http://localhost:4567/books/%d", testBook.getId());
-  //   goTo(url);
-  //   assertThat(pageSource()).contains("The Alchemist");
-  // }
-  //
-  // @Test
-  // public void bookIsAddedToAuthor() {
-  //   Author testAuthor = new Author("Paulo Coelho");
-  //   testAuthor.save();
-  //   Book testBook = new Book("The Alchemist");
-  //   testBook.save();
-  //   String url = String.format("http://localhost:4567/authors/%d", testAuthor.getId());
-  //   goTo(url);
-  //   fillSelect("#book_id").withText("The Alchemist");
-  //   submit(".btn");
-  //   assertThat(pageSource()).contains("<li>");
-  //   assertThat(pageSource()).contains("The Alchemist");
-  // }
-  //
+
+  @Test
+  public void venueIsAddedToBand() {
+    Band existingBand = new Band("U2");
+    existingBand.save();
+    Venue existingVenue = new Venue("Soldier Field");
+    existingVenue.save();
+
+    String url = String.format("http://localhost:4567/bands/%d", existingBand.getId());
+    goTo(url);
+
+    fillSelect("#venue").withText("Soldier Field");
+    submit("#btn-venue-submit");
+    assertThat(pageSource()).contains("<li>");
+    assertThat(pageSource()).contains("Soldier Field");
+  }
+
   // @Test
   // public void authorIsAddedToBook() {
   //   Author testAuthor = new Author("Paulo Coelho");
