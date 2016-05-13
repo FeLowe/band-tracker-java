@@ -71,16 +71,16 @@ public class BandTest {
     newBand.update("Pearl Jam");
     assertEquals("Pearl Jam", Band.find(newBand.getId()).getName());
   }
-    // @Test
-    // public void addBand_addsBandToVenue() {
-    //   Band newBand = new Band("U2");
-    //   newBand.save();
-    //   Venue newVenue = new Venue("Soldier Field");
-    //   newVenue.save();
-    //   newVenue.addBand(newBand);
-    //   Band savedBand = newVenue.getBands().get(0);
-    //   assertTrue(newBand.equals(savedBand));
-    // }
+    @Test
+    public void addBand_addsBandToVenue() {
+      Band newBand = new Band("U2");
+      newBand.save();
+      Venue newVenue = new Venue("Soldier Field");
+      newVenue.save();
+      newVenue.addBand(newBand);
+      Band savedBand = newVenue.getBands().get(0);
+      assertTrue(newBand.equals(savedBand));
+    }
 
   //  @Test
   //  public void getBands_returnsAllBands_List() {
