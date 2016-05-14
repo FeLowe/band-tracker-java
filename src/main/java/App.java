@@ -3,8 +3,8 @@ import java.util.HashMap;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
-// import java.util.List;
-// import java.util.ArrayList;
+import java.util.List;
+import java.util.ArrayList;
 
 public class App {
   public static void main (String[] args){
@@ -57,14 +57,25 @@ public class App {
         return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
 
-      post("/add_venues", (request, response) -> {
-        int bandId = Integer.parseInt(request.queryParams("band_id"));
-        String[] venueId = Integer.parseInt(request.queryParamsValues("venue"));
+      post("/bands/:band_id/add_venues", (request, response) -> {
+        int bandId = Integer.parseInt(request.queryParams(":band_id"));
         Band band = Band.find(bandId);
-        Venue venue = Venue.find(venueId);
-        band.addVenue(venue);
-        response.redirect("/bands/" + bandId);
-        return null;
+
+        String[] venueIdsInput = request.queryParamsValues("venue");
+
+          for (String venueIdInput: venueIdsInput){
+
+            Venue venue = Venue.find(Integer.parseInt(venueIdInput));
+
+
+            band.addVenue(venue);
+
+            System.out.println(venue);
+            System.out.println(bandId);
+            System.out.println(venueIdsInput);
+          }
+          response.redirect("/bands/" + bandId);
+          return null;
       });
 
       //     post("/add_authors", (request, response) -> {
