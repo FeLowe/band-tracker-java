@@ -130,17 +130,17 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).doesNotContain("United Center");
   }
 
-  // @Test
-  // public void bookDelete() {
-  //   Book myBook = new Book("Veronica Decides To Die");
-  //   myBook.save();
-  //   String bookPath = String.format("http://localhost:4567/books/%d", myBook.getId());
-  //   goTo(bookPath);
-  //   click("a", withText("Delete this book"));
-  //   String allBooksPath = String.format("http://localhost:4567/books/");
-  //   goTo(allBooksPath);
-  //   assertThat(pageSource()).doesNotContain("Veronica Decides To Die");
-  // }
+  @Test
+  public void deleteVenue() {
+    Venue existingVenue = new Venue("United Center");
+    existingVenue.save();
+    String venuePath = String.format("http://localhost:4567/venues/%d", existingVenue.getId());
+    goTo(venuePath);
+    click("a", withText("Delete this venue"));
+    String allVenuesPath = String.format("http://localhost:4567/venues/");
+    goTo(allVenuesPath);
+    assertThat(pageSource()).doesNotContain("United Center");
+  }
   //
   //
   // @Test

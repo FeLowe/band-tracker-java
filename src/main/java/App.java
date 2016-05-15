@@ -119,10 +119,7 @@ public class App {
 //        return null;
 //      });
 
-//
-//
-//
-// SHOW UPDATE VENUES FORM - CLICK ON "a tag(href)"
+// SHOW VENUE UPDATE
     get("/venues/:id/edit", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
       Venue venue = Venue.find(Integer.parseInt(request.params(":id")));
@@ -130,7 +127,8 @@ public class App {
       model.put("template", "templates/venue-update.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-//     // PROCESSES UPDATE VENUES FORM
+
+// PROCESSES VENUE UPDATE - FORM
     post("/venues/:id/edit", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Venue oldVenue = Venue.find(Integer.parseInt(request.params(":id")));
@@ -139,17 +137,17 @@ public class App {
       response.redirect("/venues");
       return null;
     });
-//
-// DO THE DELETE BOOK ACTION
-//     get("/books/:id/delete", (request, response) -> {
-//       HashMap<String, Object> model = new HashMap<String, Object>();
-//       Book book = Book.find(Integer.parseInt(request.params(":id")));
-//       book.delete();
-//       response.redirect("/books");
-//       return null;
-//     });
-//
-// SHOW UPDATE BANDS FORM - CLICK ON "a tag(href)"
+
+// DELETE VENUE
+    get("/venues/:id/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Venue venue = Venue.find(Integer.parseInt(request.params(":id")));
+      venue.delete();
+      response.redirect("/venues");
+      return null;
+    });
+
+// UPDATE BAND
        get("/bands/:id/edit", (request, response) -> {
        HashMap<String, Object> model = new HashMap<String, Object>();
          Band band = Band.find(Integer.parseInt(request.params(":id")));
@@ -158,7 +156,7 @@ public class App {
          return new ModelAndView(model, layout);
        }, new VelocityTemplateEngine());
 
- // PROCESSES UPDATE BANDS FORM
+ // PROCESSES BANDS UPDATE - FORM
        post("/bands/:id/edit", (request, response) -> {
          HashMap<String, Object> model = new HashMap<String, Object>();
          Band oldBand = Band.find(Integer.parseInt(request.params(":id")));
@@ -167,8 +165,8 @@ public class App {
          response.redirect("/bands");
          return null;
        });
-//
-// DO THE DELETE BAND ACTION
+
+// DELETE BAND
        get("/bands/:id/delete", (request, response) -> {
          HashMap<String, Object> model = new HashMap<String, Object>();
          Band band = Band.find(Integer.parseInt(request.params(":id")));
