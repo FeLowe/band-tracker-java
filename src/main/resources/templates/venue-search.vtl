@@ -1,20 +1,22 @@
 
-<p>Book Search By Author</p>
+<h3>Venue search by band</h3>
 
-<form action='/books/search' method='post'>
-  <label for="author_id">Select an author</label>
-  <select id='author_id' name='author_id' type='text'>
-    #foreach($author in $allAuthors)
-      <option value="$author.getId()"> $author.getName() </option>
+<form action='/venues/search' method='post'>
+  <label for="bandSearch_id">Select band</label>
+  <select id='bandSearch_id' name='bandSearch_id' type='text'>
+    #foreach($band in $allBands)
+      <option value="$band.getId()"> $band.getName() </option>
     #end
   </select>
-  <button type="submit" class="btn btn-info">Search</button>
+  <button type="submit"  id="btn-search" class="btn btn-info">Search</button>
 </form>
 
-<a href="/$book.all()">Return to books</a>
+<a href="/$venue.all()">Return to venues</a>
 
+#if(venues)
 <ul>
-  #foreach ($book in $books)
-    <li><a href="/book.getId()">$book.getName()</a></li>
+  #foreach ($venue in $venues)
+    <li><a href="/venue.getId()">$venue.getName()</a></li>
   #end
 </ul>
+#end

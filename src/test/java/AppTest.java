@@ -50,7 +50,7 @@ public class AppTest extends FluentTest {
   }
 
   @Test
-  public void BandDisplays() {
+  public void bandDisplays() {
     Band existingBand = new Band("U2");
     existingBand.save();
     String url = String.format("http://localhost:4567/bands/%d", existingBand.getId());
@@ -58,14 +58,14 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("U2");
   }
 
-  // @Test
-  // public void venueDisplays() {
-  //   Venue existingVenue = new Venue("Soldier Field");
-  //   existingVenue.save();
-  //   String url = String.format("http://localhost:4567/venues/%d", existingVenue.getId());
-  //   goTo(url);
-  //   assertThat(pageSource()).contains("Soldier Field");
-  // }
+  @Test
+  public void venueDisplays() {
+    Venue existingVenue = new Venue("Soldier Field");
+    existingVenue.save();
+    String url = String.format("http://localhost:4567/venues/%d", existingVenue.getId());
+    goTo(url);
+    assertThat(pageSource()).contains("Soldier Field");
+  }
 
   @Test
   public void addVenueToBand() {
@@ -141,22 +141,21 @@ public class AppTest extends FluentTest {
     goTo(allVenuesPath);
     assertThat(pageSource()).doesNotContain("United Center");
   }
-  //
-  //
-  // @Test
-  // public void bookSearchByAuthorName() {
-  //   Author testAuthor = new Author("Paulo Coelho");
-  //   testAuthor.save();
-  //   Book testBook = new Book("The Alchemist");
-  //   testBook.save();
-  //   String url = String.format("http://localhost:4567/books/%d", testBook.getId());
-  //   goTo(url);
-  //   fillSelect("#author_id").withText("Paulo Coelho");
-  //   submit(".btn");
-  //   goTo("http://localhost:4567/");
-  //   click("a", withText("Search for a book"));
-  //   fill("#book-search").with("Paulo Coelho");
-  //   submit("#search-button");
-  //   assertThat(pageSource()).contains("The Alchemist");
-  // }
+
+  @Test
+  public void searchVenueByBandName() {
+    Band existingBand = new Band("U2");
+    existingBand .save();
+    Venue existingVenue = new Venue("United Center");
+    existingVenue.save();
+    String url = String.format("http://localhost:4567/venues/%d", existingVenue.getId());
+    goTo(url);
+    fillSelect("#bandSearch_id").withText("U2");
+    submit(".btn");
+    goTo("http://localhost:4567/");
+    click("a", withText("Search for a venue"));
+    fill("#bandSearch_id").with("U2");
+    submit("#search-button");
+    assertThat(pageSource()).contains("Soldier Field");
+  }
 }
