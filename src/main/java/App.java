@@ -57,46 +57,44 @@ public class App {
         return new ModelAndView(model, layout);
       }, new VelocityTemplateEngine());
 
-      post("/bands/:band_id/add_venues", (request, response) -> {
-        int bandId = Integer.parseInt(request.queryParams(":band_id"));
-        Band band = Band.find(bandId);
-
-        String[] venueIdsInput = request.queryParamsValues("venue");
-
-          for (String venueIdInput: venueIdsInput){
-
-            Venue venue = Venue.find(Integer.parseInt(venueIdInput));
-
-
-            band.addVenue(venue);
-
-            System.out.println(venue);
-            System.out.println(bandId);
-            System.out.println(venueIdsInput);
-          }
-          response.redirect("/bands/" + bandId);
-          return null;
+      post("/add_venues", (request, response) -> {
+        int hiddenBandId = Integer.parseInt(request.queryParams("band_id"));
+        Band band = Band.find(hiddenBandId );
+        int venueIdFromUserSelection = Integer.parseInt(request.queryParams("venue"));
+        Venue selectedVenue = Venue.find(venueIdFromUserSelection);
+        band.addVenue(selectedVenue);
+        // CHECKBOX
+        // String [] userSelections = request.queryParamsValues("venue");
+        // for (String eachSelection : userSelections){
+        //   Venue selectedVenue = Venue.find(Integer.parseInt(eachSelection));
+        //   band.addVenue(selectedVenue);
+        //   System.out.println(selectedVenue);
+        // }
+        //
+        response.redirect("/bands/" + hiddenBandId);
+        return null;
       });
 
-      //     post("/add_authors", (request, response) -> {
-      //       int bookId = Integer.parseInt(request.queryParams("book_id"));
-      //       int authorId = Integer.parseInt(request.queryParams("author_id"));
-      //       Author author = Author.find(authorId);
-      //       Book book = Book.find(bookId);
-      //       book.addAuthor(author);
-      //       response.redirect("/books/" + bookId);
-      //       return null;
-      //     });
+      get("/venues/:id", (request,response) -> {
+          HashMap<String, Object> model = new HashMap<String, Object>();
+          int venueId = Integer.parseInt(request.params(":id"));
+          Venue venue = Venue.find(venueId);
+          model.put("venue", venue);
+          model.put("allBands", Band.all());
+          model.put("template", "templates/venue-single.vtl");
+          return new ModelAndView(model, layout);
+        }, new VelocityTemplateEngine());
 
-    // get("/venues/:id", (request,response) -> {
-    //     HashMap<String, Object> model = new HashMap<String, Object>();
-    //     int book_id = Integer.parseInt(request.params(":id"));
-    //     Book book = Book.find(book_id);
-    //     model.put("book", book);
-    //     model.put("allAuthors", Author.all());
-    //     model.put("template", "templates/book.vtl");
-    //     return new ModelAndView(model, layout);
-    //   }, new VelocityTemplateEngine());
+          post("/add_bands", (request, response) -> {
+            int hiddenVenueId = Integer.parseInt(request.queryParams("venue_id"));
+            Venue venue = Venue.find(hiddenVenueId);
+            int bandId = Integer.parseInt(request.queryParams("band_id"));
+            Band band = Band.find(bandId);
+            venue.addBand(band);
+            response.redirect("/venues/" + hiddenVenueId);
+            return null;
+          });
+
 //
  // SHOW SEARCH BOOKS FORM
 //      get("/books/search", (request, response) -> {
@@ -124,23 +122,23 @@ public class App {
 //
 //
 //
-// SHOW UPDATE BOOKS FORM - CLICK ON "a tag(href)"
-//     get("/books/:id/edit", (request, response) -> {
-//     HashMap<String, Object> model = new HashMap<String, Object>();
-//       Book book = Book.find(Integer.parseInt(request.params(":id")));
-//       model.put("book", book);
-//       model.put("template", "templates/book-update.vtl");
-//       return new ModelAndView(model, layout);
-//     }, new VelocityTemplateEngine());
-//     // PROCESSES UPDATE BOOKS FORM
-//     post("/books/:id/edit", (request, response) -> {
-//       HashMap<String, Object> model = new HashMap<String, Object>();
-//       Book oldBook = Book.find(Integer.parseInt(request.params(":id")));
-//       String newBook = request.queryParams("book-update");
-//       oldBook.update(newBook);
-//       response.redirect("/books");
-//       return null;
-//     });
+// SHOW UPDATE VENUES FORM - CLICK ON "a tag(href)"
+    get("/venues/:id/edit", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+      Venue venue = Venue.find(Integer.parseInt(request.params(":id")));
+      model.put("venue", venue);
+      model.put("template", "templates/venue-update.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+//     // PROCESSES UPDATE VENUES FORM
+    post("/venues/:id/edit", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Venue oldVenue = Venue.find(Integer.parseInt(request.params(":id")));
+      String newVenue = request.queryParams("venue-update");
+      oldVenue.update(newVenue);
+      response.redirect("/venues");
+      return null;
+    });
 //
 // DO THE DELETE BOOK ACTION
 //     get("/books/:id/delete", (request, response) -> {
@@ -151,32 +149,32 @@ public class App {
 //       return null;
 //     });
 //
-// SHOW UPDATE AUTHORS FORM - CLICK ON "a tag(href)"
-//        get("/authors/:id/edit", (request, response) -> {
-//        HashMap<String, Object> model = new HashMap<String, Object>();
-//          Author author = Author.find(Integer.parseInt(request.params(":id")));
-//          model.put("author", author);
-//          model.put("template", "templates/author-update.vtl");
-//          return new ModelAndView(model, layout);
-//        }, new VelocityTemplateEngine());
+// SHOW UPDATE BANDS FORM - CLICK ON "a tag(href)"
+       get("/bands/:id/edit", (request, response) -> {
+       HashMap<String, Object> model = new HashMap<String, Object>();
+         Band band = Band.find(Integer.parseInt(request.params(":id")));
+         model.put("band", band);
+         model.put("template", "templates/band-update.vtl");
+         return new ModelAndView(model, layout);
+       }, new VelocityTemplateEngine());
+
+ // PROCESSES UPDATE BANDS FORM
+       post("/bands/:id/edit", (request, response) -> {
+         HashMap<String, Object> model = new HashMap<String, Object>();
+         Band oldBand = Band.find(Integer.parseInt(request.params(":id")));
+         String newBand = request.queryParams("band-update");
+         oldBand.update(newBand);
+         response.redirect("/bands");
+         return null;
+       });
 //
- // PROCESSES UPDATE AUTHORS FORM
-//        post("/authors/:id/edit", (request, response) -> {
-//          HashMap<String, Object> model = new HashMap<String, Object>();
-//          Author oldAuthor = Author.find(Integer.parseInt(request.params(":id")));
-//          String newAuthor = request.queryParams("author-update");
-//          oldAuthor.update(newAuthor);
-//          response.redirect("/authors");
-//          return null;
-//        });
-//
-// DO THE DELETE AUTHOR ACTION
-//        get("/authors/:id/delete", (request, response) -> {
-//          HashMap<String, Object> model = new HashMap<String, Object>();
-//          Author author = Author.find(Integer.parseInt(request.params(":id")));
-//          author.delete();
-//          response.redirect("/authors");
-//          return null;
-//        });
+// DO THE DELETE BAND ACTION
+       get("/bands/:id/delete", (request, response) -> {
+         HashMap<String, Object> model = new HashMap<String, Object>();
+         Band band = Band.find(Integer.parseInt(request.params(":id")));
+         band.delete();
+         response.redirect("/bands");
+         return null;
+       });
   }
 }

@@ -1,27 +1,27 @@
-<h1>$book.getName()</h1>
+<h1>$venue.getName()</h1>
 
-#if($book.getAuthors())
-  <p>Here are the authors for this book:</p>
+#if($venue.getBands())
+  <h3>Here are the bands that has played at $venue.getName():</h3>
   <ul>
-    #foreach($author in $book.getAuthors())
-      <li>$author.getName()</li>
+    #foreach($band in $venue.getBands())
+      <li>$band.getName()</li>
     #end
   </ul>
 #end
 
-<h4>Add a author to this book:</h4>
+<h4>Add a band to $venue.getName():</h4>
 
-<form action='/add_authors' method='post'>
-  <input id="book_id" name="book_id" type="hidden" value="$book.getId()">
-  <label for="author_id">Select an author</label>
-  <select id='author_id' name='author_id' type='text'>
-    #foreach($author in $allAuthors)
-      <option value="$author.getId()"> $author.getName() </option>
+<form action='/add_bands' method='post'>
+  <input id="venue_id" name="venue_id" type="hidden" value="$venue.getId()">
+  <select id='band_id' name='band_id' type='text'>
+    <option value="placeholder" required>Select band</option>
+    #foreach($band in $allBands)
+      <option value="$band.getId()"> $band.getName() </option>
     #end
   </select>
-  <button type="submit" class="btn btn-info">Add author to this book</button>
+  <button id="btn-add-band"type="submit" class="btn btn-info">Add</button>
 </form>
 
-<p><a href="/books/$book.getId()/edit">Edit this book</a></p>
-<p><a href="/books/$book.getId()/delete">Delete this book</a></p>
+<p><a href="/venues/$venue.getId()/edit">Edit this venue</a></p>
+<p><a href="/venues/$venue.getId()/delete">Delete this venue</a></p>
 <p><a href="/">Home</a></p>

@@ -1,18 +1,18 @@
-<h1>$author.getName()</h1>
+<h1>$band.getName()</h1>
 
-<p>Edit author:</p>
+<p>Edit band:</p>
 
-<form action="/authors/$author.getId()/edit" method="post">
-  <input id="author_update_id" name="author_update_id" type="hidden" value="$author.getId()">
-  <label for="author-update">Update to:</label>
-  <input id="author-update" name="author-update" type="text">
-  <button type="submit" class="btn btn-info" id="update-author">Update Author</button>
+<form action="/bands/$band.getId()/edit" method="post">
+  <input id="band_update_id" name="band_update_id" type="hidden" value="$band.getId()">
+  <label for="band-update">Update to:</label>
+  <input id="band-update" name="band-update" type="text">
+  <button type="submit" id="btn-update-band"class="btn btn-info">Update</button>
 </form>
 
-<a href="/$author.all()">Return to authors</a>
+<a href="/$band.all()">Return to bands</a>
 
 <ul>
-  #foreach ($author in $authors)
-    <li><a href="/author.getId()">$author.getName()</a></li>
+  #foreach ($band in $bands)
+    <li><a href="/band.getId()">$band.getName()</a></li>
   #end
 </ul>

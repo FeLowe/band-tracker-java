@@ -1,5 +1,5 @@
 #if($band.getVenues())
-  <h3>This are the venues $band.getName() has played at :</h3>
+  <h3>These are the venues $band.getName() has played at :</h3>
   <ul>
     #foreach($venue in $band.getVenues())
       <li>$venue.getName()</li>
@@ -7,17 +7,17 @@
   </ul>
 #end
 
-<em><h3>Add a venue to $band.getName():</h3></em>
+<h3>Add a venue to $band.getName():</h3>
 
-<form action="/bands/$band.getId()/add_venues" method="post">
+<form action="/add_venues" method="post">
   <input id="band_id" name="band_id" type="hidden" value="$band.getId()">
 
-  <h4><label for="venue">Select a venue:</label></h4><br>
-
+  <select  type="text" id="venue" name="venue">
+    <option value="placeholder" required>Select venue</option>
     #foreach($venue in $allVenues)
-  <label value="$venue.getId()"> $venue.getName() </label>
-  <input type="checkbox" id="venue" name="venue" value="$venue.getName()">
+      <option value="$venue.getId()" required> $venue.getName()</option>
     #end <br>
+  </select>
   <button id="btn-venue-submit" type="submit" class="btn btn-info">Add venue to $band.getName()</button>
 </form><br>
 
@@ -25,3 +25,15 @@
 <p><a href="/bands/$band.getId()/delete">Delete this band</a></p>
 
 <p><a href="/">Home</a></p>
+
+<!-- CHECKBOX
+<form action="/add_venues" method="post">
+  <input id="band_id" name="band_id" type="hidden" value="$band.getId()">
+  <h4><label for="venue">Select a venue:</label></h4><br>
+  <input type="checkbox" id="venue" name="venue">
+    #foreach($venue in $allVenues)
+      <option value="$venue.getId()" required> $venue.getName()</option>
+  #end <br>
+
+  <button id="btn-venue-submit" type="submit" class="btn btn-info">Add venue to   $band.getName()</button>
+</form><br> -->

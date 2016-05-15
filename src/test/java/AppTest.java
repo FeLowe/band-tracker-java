@@ -68,7 +68,7 @@ public class AppTest extends FluentTest {
   // }
 
   @Test
-  public void venueIsAddedToBand() {
+  public void addVenueToBand() {
     Band existingBand = new Band("U2");
     existingBand.save();
     Venue existingVenue = new Venue("Soldier Field");
@@ -82,32 +82,54 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("<li>");
     assertThat(pageSource()).contains("Soldier Field");
   }
+  @Test
+  public void updateBand() {
+    Band existingBand = new Band("U2");
+    existingBand.save();
+    String bandPath = String.format("http://localhost:4567/bands/%d", existingBand.getId());
+    goTo(bandPath);
+    click("a", withText("Edit this band"));
+    fill("#band-update").with("U3");
+    submit("#btn-update-band");
+    assertThat(pageSource()).doesNotContain("U2");
+  }
+  @Test
+  public void deleteBand() {
+    Band existingBand = new Band("U2");
+    existingBand.save();
+    String bandPath = String.format("http://localhost:4567/bands/%d", existingBand.getId());
+    goTo(bandPath);
+    click("a", withText("Delete this band"));
+    String allBandssPath = String.format("http://localhost:4567/bands/");
+    goTo(allBandssPath);
+    assertThat(pageSource()).doesNotContain("U2");
+  }
 
-  // @Test
-  // public void authorIsAddedToBook() {
-  //   Author testAuthor = new Author("Paulo Coelho");
-  //   testAuthor.save();
-  //   Book testBook = new Book("The Alchemist");
-  //   testBook.save();
-  //   String url = String.format("http://localhost:4567/books/%d", testBook.getId());
-  //   goTo(url);
-  //   fillSelect("#author_id").withText("Paulo Coelho");
-  //   submit(".btn");
-  //   assertThat(pageSource()).contains("<li>");
-  //   assertThat(pageSource()).contains("Paulo Coelho");
-  // }
-  // @Test
-  // public void bookUpdate() {
-  //   Book myBook = new Book("Veronica Decides To Die");
-  //   myBook.save();
-  //   String bookPath = String.format("http://localhost:4567/books/%d", myBook.getId());
-  //   goTo(bookPath);
-  //   click("a", withText("Edit this book"));
-  //   fill("#book-update").with("Veronica Decides To Live");
-  //   submit("#update-book");
-  //   assertThat(pageSource()).doesNotContain("Veronica Decides To Die");
-  // }
-  //
+  @Test
+  public void addBandToVenue() {
+    Band existingBand = new Band("U2");
+    existingBand .save();
+    Venue existingVenue = new Venue("United Center");
+    existingVenue.save();
+    String url = String.format("http://localhost:4567/venues/%d", existingVenue.getId());
+    goTo(url);
+    fillSelect("#band_id").withText("U2");
+    submit("#btn-add-band");
+    assertThat(pageSource()).contains("<li>");
+    assertThat(pageSource()).contains("U2");
+  }
+  @Test
+  public void updateVenue() {
+    Venue existingVenue = new Venue("United Center");
+    existingVenue.save();
+    String venuePath = String.format("http://localhost:4567/venues/%d", existingVenue.getId());
+    goTo(venuePath);
+    click("a", withText("Edit this venue"));
+    fill("#venue-update").with("Soldier Field");
+    submit("#btn-update-venue");
+    assertThat(pageSource()).doesNotContain("United Center");
+  }
+
   // @Test
   // public void bookDelete() {
   //   Book myBook = new Book("Veronica Decides To Die");
@@ -119,29 +141,7 @@ public class AppTest extends FluentTest {
   //   goTo(allBooksPath);
   //   assertThat(pageSource()).doesNotContain("Veronica Decides To Die");
   // }
-  // @Test
-  // public void authorUpdate() {
-  //   Author myAuthor = new Author("Paulo Coelho");
-  //   myAuthor.save();
-  //   String authorPath = String.format("http://localhost:4567/authors/%d", myAuthor.getId());
-  //   goTo(authorPath);
-  //   click("a", withText("Edit this author"));
-  //   fill("#author-update").with("Paulo De Coelho");
-  //   submit("#update-author");
-  //   assertThat(pageSource()).doesNotContain("Paulo Coelho");
-  // }
   //
-  // @Test
-  // public void authorDelete() {
-  //   Author myAuthor = new Author("Paulo Coelho");
-  //   myAuthor.save();
-  //   String authorPath = String.format("http://localhost:4567/authors/%d", myAuthor.getId());
-  //   goTo(authorPath);
-  //   click("a", withText("Delete this author"));
-  //   String allAuthorsPath = String.format("http://localhost:4567/authors/");
-  //   goTo(allAuthorsPath);
-  //   assertThat(pageSource()).doesNotContain("Paulo Coelho");
-  // }
   //
   // @Test
   // public void bookSearchByAuthorName() {
