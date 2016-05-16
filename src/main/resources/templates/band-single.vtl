@@ -13,12 +13,12 @@
   <input id="band_id" name="band_id" type="hidden" value="$band.getId()">
 
   <select  type="text" id="venue" name="venue">
-    <option value="placeholder" required>Select venue</option>
+    <option value="placeholder" selected="selected">Select venue</option>
     #foreach($venue in $allVenues)
       <option value="$venue.getId()" required> $venue.getName()</option>
     #end <br>
   </select>
-  <button id="btn-venue-submit" type="submit" class="btn btn-info">Add venue to $band.getName()</button>
+  <button id="btn-venue-submit" type="submit" class="btn btn-success">Add</button>
 </form><br>
 
 <p><a href="/bands/$band.getId()/edit">Edit this band</a></p>

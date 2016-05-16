@@ -47,6 +47,24 @@ public class App {
       response.redirect("/venues");
       return null;
     });
+// VENUE SEARCH BY BAND NAME
+    // get("/venues/search", (request, response) -> {
+    //     HashMap<String, Object> model = new HashMap<String, Object>();
+    //     model.put("allBands", Band.all());
+    //     model.put("template", "templates/venue-search.vtl");
+    //     return new ModelAndView(model, layout);
+    //   }, new VelocityTemplateEngine());
+    //
+    // post("/venues/search", (request, response) -> {
+    //   HashMap<String, Object> model = new HashMap<String, Object>();
+    //   int hiddenBandIdSearch = Integer.parseInt(request.queryParams("band_search_id"));
+    //   Band band = Band.find(hiddenBandIdSearch);
+    //   List<Venue> venuesByBandName = band.getVenues();
+    //   model.put("venues", venuesByBandName);
+    //   model.put("template", "templates/venue-search.vtl");
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
+
     get("/bands/:id", (request,response) ->{
       HashMap<String, Object> model = new HashMap<String, Object>();
       Band band = Band.find(Integer.parseInt(request.params(":id")));
@@ -59,6 +77,7 @@ public class App {
     post("/add_venues", (request, response) -> {
       int hiddenBandId = Integer.parseInt(request.queryParams("band_id"));
       Band band = Band.find(hiddenBandId );
+
       int venueIdFromUserSelection = Integer.parseInt(request.queryParams("venue"));
       Venue selectedVenue = Venue.find(venueIdFromUserSelection);
       band.addVenue(selectedVenue);
@@ -94,22 +113,7 @@ public class App {
       return null;
     });
 
-    // VENUE SEARCH BY BAND NAME
-    get("/venues/search", (request, response) -> {
-      HashMap<String, Object> model = new HashMap<String, Object>();
-      if (request.queryParams().size() > 0){
-        int bandSelectedId = Integer.parseInt(request.queryParams("bandSearch_id"));
-        Band bandSearched = Band.find(bandSelectedId);
-        List<Venue> listOfVenuesByBandName = bandSearched.getVenues();
-
-        model.put("venues", listOfVenuesByBandName);
-      }
-      model.put("allBands", Band.all());
-      model.put("template", "templates/venue-search.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
-
-    // VENUE UPDATE
+// VENUE UPDATE
     get("/venues/:id/edit", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Venue venue = Venue.find(Integer.parseInt(request.params(":id")));
@@ -118,7 +122,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // VENUE UPDATE - FORM
+// VENUE UPDATE - FORM
     post("/venues/:id/edit", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Venue oldVenue = Venue.find(Integer.parseInt(request.params(":id")));
@@ -128,7 +132,7 @@ public class App {
       return null;
     });
 
-    // VENUE DELETE
+// VENUE DELETE
     get("/venues/:id/delete", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Venue venue = Venue.find(Integer.parseInt(request.params(":id")));
@@ -137,7 +141,7 @@ public class App {
       return null;
     });
 
-    // BAND UPDATE
+// BAND UPDATE
     get("/bands/:id/edit", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Band band = Band.find(Integer.parseInt(request.params(":id")));
@@ -146,7 +150,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // BAND UPDATE - FORM
+// BAND UPDATE - FORM
     post("/bands/:id/edit", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Band oldBand = Band.find(Integer.parseInt(request.params(":id")));
@@ -156,7 +160,7 @@ public class App {
       return null;
     });
 
-    // BAND DELETE
+// BAND DELETE
     get("/bands/:id/delete", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       Band band = Band.find(Integer.parseInt(request.params(":id")));
