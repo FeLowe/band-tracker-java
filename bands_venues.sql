@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.2
+-- Dumped by pg_dump version 9.5.2
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
@@ -30,7 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: bands; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: bands; Type: TABLE; Schema: public; Owner: flowe
 --
 
 CREATE TABLE bands (
@@ -39,10 +43,10 @@ CREATE TABLE bands (
 );
 
 
-ALTER TABLE bands OWNER TO "Guest";
+ALTER TABLE bands OWNER TO flowe;
 
 --
--- Name: bands_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+-- Name: bands_id_seq; Type: SEQUENCE; Schema: public; Owner: flowe
 --
 
 CREATE SEQUENCE bands_id_seq
@@ -53,17 +57,17 @@ CREATE SEQUENCE bands_id_seq
     CACHE 1;
 
 
-ALTER TABLE bands_id_seq OWNER TO "Guest";
+ALTER TABLE bands_id_seq OWNER TO flowe;
 
 --
--- Name: bands_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+-- Name: bands_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: flowe
 --
 
 ALTER SEQUENCE bands_id_seq OWNED BY bands.id;
 
 
 --
--- Name: bands_venues; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: bands_venues; Type: TABLE; Schema: public; Owner: flowe
 --
 
 CREATE TABLE bands_venues (
@@ -73,10 +77,10 @@ CREATE TABLE bands_venues (
 );
 
 
-ALTER TABLE bands_venues OWNER TO "Guest";
+ALTER TABLE bands_venues OWNER TO flowe;
 
 --
--- Name: bands_venues_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+-- Name: bands_venues_id_seq; Type: SEQUENCE; Schema: public; Owner: flowe
 --
 
 CREATE SEQUENCE bands_venues_id_seq
@@ -87,17 +91,17 @@ CREATE SEQUENCE bands_venues_id_seq
     CACHE 1;
 
 
-ALTER TABLE bands_venues_id_seq OWNER TO "Guest";
+ALTER TABLE bands_venues_id_seq OWNER TO flowe;
 
 --
--- Name: bands_venues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+-- Name: bands_venues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: flowe
 --
 
 ALTER SEQUENCE bands_venues_id_seq OWNED BY bands_venues.id;
 
 
 --
--- Name: venues; Type: TABLE; Schema: public; Owner: Guest; Tablespace: 
+-- Name: venues; Type: TABLE; Schema: public; Owner: flowe
 --
 
 CREATE TABLE venues (
@@ -106,10 +110,10 @@ CREATE TABLE venues (
 );
 
 
-ALTER TABLE venues OWNER TO "Guest";
+ALTER TABLE venues OWNER TO flowe;
 
 --
--- Name: venues_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+-- Name: venues_id_seq; Type: SEQUENCE; Schema: public; Owner: flowe
 --
 
 CREATE SEQUENCE venues_id_seq
@@ -120,38 +124,38 @@ CREATE SEQUENCE venues_id_seq
     CACHE 1;
 
 
-ALTER TABLE venues_id_seq OWNER TO "Guest";
+ALTER TABLE venues_id_seq OWNER TO flowe;
 
 --
--- Name: venues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+-- Name: venues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: flowe
 --
 
 ALTER SEQUENCE venues_id_seq OWNED BY venues.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+-- Name: id; Type: DEFAULT; Schema: public; Owner: flowe
 --
 
 ALTER TABLE ONLY bands ALTER COLUMN id SET DEFAULT nextval('bands_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+-- Name: id; Type: DEFAULT; Schema: public; Owner: flowe
 --
 
 ALTER TABLE ONLY bands_venues ALTER COLUMN id SET DEFAULT nextval('bands_venues_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+-- Name: id; Type: DEFAULT; Schema: public; Owner: flowe
 --
 
 ALTER TABLE ONLY venues ALTER COLUMN id SET DEFAULT nextval('venues_id_seq'::regclass);
 
 
 --
--- Data for Name: bands; Type: TABLE DATA; Schema: public; Owner: Guest
+-- Data for Name: bands; Type: TABLE DATA; Schema: public; Owner: flowe
 --
 
 COPY bands (id, name) FROM stdin;
@@ -159,14 +163,14 @@ COPY bands (id, name) FROM stdin;
 
 
 --
--- Name: bands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+-- Name: bands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: flowe
 --
 
-SELECT pg_catalog.setval('bands_id_seq', 3, true);
+SELECT pg_catalog.setval('bands_id_seq', 13, true);
 
 
 --
--- Data for Name: bands_venues; Type: TABLE DATA; Schema: public; Owner: Guest
+-- Data for Name: bands_venues; Type: TABLE DATA; Schema: public; Owner: flowe
 --
 
 COPY bands_venues (id, band_id, venue_id) FROM stdin;
@@ -174,14 +178,14 @@ COPY bands_venues (id, band_id, venue_id) FROM stdin;
 
 
 --
--- Name: bands_venues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+-- Name: bands_venues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: flowe
 --
 
-SELECT pg_catalog.setval('bands_venues_id_seq', 1, false);
+SELECT pg_catalog.setval('bands_venues_id_seq', 25, true);
 
 
 --
--- Data for Name: venues; Type: TABLE DATA; Schema: public; Owner: Guest
+-- Data for Name: venues; Type: TABLE DATA; Schema: public; Owner: flowe
 --
 
 COPY venues (id, name) FROM stdin;
@@ -189,14 +193,14 @@ COPY venues (id, name) FROM stdin;
 
 
 --
--- Name: venues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+-- Name: venues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: flowe
 --
 
-SELECT pg_catalog.setval('venues_id_seq', 4, true);
+SELECT pg_catalog.setval('venues_id_seq', 12, true);
 
 
 --
--- Name: bands_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: bands_pkey; Type: CONSTRAINT; Schema: public; Owner: flowe
 --
 
 ALTER TABLE ONLY bands
@@ -204,7 +208,7 @@ ALTER TABLE ONLY bands
 
 
 --
--- Name: bands_venues_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: bands_venues_pkey; Type: CONSTRAINT; Schema: public; Owner: flowe
 --
 
 ALTER TABLE ONLY bands_venues
@@ -212,7 +216,7 @@ ALTER TABLE ONLY bands_venues
 
 
 --
--- Name: venues_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest; Tablespace: 
+-- Name: venues_pkey; Type: CONSTRAINT; Schema: public; Owner: flowe
 --
 
 ALTER TABLE ONLY venues
@@ -220,12 +224,12 @@ ALTER TABLE ONLY venues
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: epicodus
+-- Name: public; Type: ACL; Schema: -; Owner: flowe
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM epicodus;
-GRANT ALL ON SCHEMA public TO epicodus;
+REVOKE ALL ON SCHEMA public FROM flowe;
+GRANT ALL ON SCHEMA public TO flowe;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
