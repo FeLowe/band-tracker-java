@@ -8,10 +8,10 @@
 
 This application let users track bands and the venues where they've played concerts.
 With this application users will be able to:
- - 1. add, update, delete and list bands;
- - 2. add venues;
- - 3. add venues to a band to show where they have played;
- - 4. see all of the venues a band has played;
+ 1. add, update, delete and list bands
+ 2. add venues
+ 3. add venues to a band to show where they have played;
+ 4. see all of the venues a band has played;
 
 ## Setup/Installation Requirements
 
@@ -30,7 +30,7 @@ None;
 
 ## Support and contact details
 
-f while using this application you run into any issues or have questions, ideas, concerns, or would like to make a contribution to the code, please contact me at fe_lowe@hotmail.com
+If while using this application you run into any issues or have questions, ideas, concerns, or would like to make a contribution to the code, please contact me at fe_lowe@hotmail.com
 
 ## Technologies Used
 

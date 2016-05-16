@@ -3,11 +3,13 @@
 
 <h4>Venues list by searched band:</h4>
 
+#if($venues)
 <ul>
   #foreach ($venue in $venues)
-  <li>$venue.getName()</li>
+  <li><a href="/venues/$venue.getId()">$venue.getName()</a></li>
   #end
 </ul>
+#end
 
 <form action='/venues/search' method='post'>
   <input id="band_search_id" name="band_search_id" type="hidden" value="$band.getId()">
@@ -23,3 +25,4 @@
 </form>
 
 <a href="/$venue.all()">Return to venues</a>
+<a href="/">Home</a>
